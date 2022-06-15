@@ -10,14 +10,26 @@ public:
         int a2=x+k;
         int b1=y-k;
         int b2=y+k;
+        if(a1<0){
+            a1=0;
+        }if(b1<0){
+            b1=0;
+        }if(a2>=n){
+            a2=n-1;
+        }if(b2>=m){
+            b2=m-1;
+        }
+        
+        
+        
+        
         int sum=0;
         for(int i=a1; i<=a2; i++){
             
             for(int j=b1; j<=b2; j++){
                 
-                if(i>=0 && j>=0 && i<n && j<m){
                     sum+=v[i][j];
-                }
+
             }
             
             
