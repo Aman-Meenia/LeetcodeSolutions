@@ -18,18 +18,17 @@ for(auto it:s){
              int bb=queries[p][1];
            int k=queries[p][2];
         vector<int> v(26);
-         
+         for(int i=0; i<26; i++){
+       
+        v[i]=V[bb][i];
+    }  
+ 
 if(aa>0){
     for(int i=0; i<26; i++){
          v[i]=V[bb][i];
         v[i]=v[i]-V[aa-1][i];
     }
     
-}else{
-    for(int i=0; i<26; i++){
-       
-        v[i]=V[bb][i];
-    }  
 }
    
            
