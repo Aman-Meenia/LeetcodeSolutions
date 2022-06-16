@@ -3,6 +3,7 @@ public:
     vector<bool> canMakePaliQueries(string s, vector<vector<int>>& queries) {
         int n=s.size();
         vector<bool>ans;
+//         pefix sum array 
         vector<vector<int> >V;
 vector<int> temp(26,0);
         char tt='a';
@@ -18,10 +19,7 @@ for(auto it:s){
              int bb=queries[p][1];
            int k=queries[p][2];
         vector<int> v(26);
-         for(int i=0; i<26; i++){
-       
-        v[i]=V[bb][i];
-    }  
+      
  
 if(aa>0){
     for(int i=0; i<26; i++){
@@ -29,13 +27,18 @@ if(aa>0){
         v[i]=v[i]-V[aa-1][i];
     }
     
+}else{
+        for(int i=0; i<26; i++){
+       
+        v[i]=V[bb][i];
+    } 
 }
    
            
            
            
         int length=(bb-aa)+1;
-
+// check if we make palindrome when length is even 
         if(length%2==0){
             int count=0;
             for(int i=0; i<=25; i++){
@@ -51,7 +54,10 @@ if(aa>0){
             } else{
                 ans.push_back(false);
             }
+            
         }else{
+            
+            // check if we make palindrome when length is even 
               int count=0;
             for(int i=0; i<=25; i++){
                 if(v[i]%2!=0){
