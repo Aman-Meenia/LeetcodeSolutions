@@ -1,6 +1,6 @@
 class Solution {
 public:
-    static int cmp(string s1, string s2){
+    static int cmp(string &s1, string &s2){
         return s1.size()>s2.size();
     }
     int minimumLengthEncoding(vector<string>& words) {
