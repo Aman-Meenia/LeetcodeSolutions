@@ -13,27 +13,36 @@ for(auto a:v){
     
     
     int findBestValue(vector<int>& v, int target) {
-        int ans=3;
+
         int maximum=*max_element(v.begin(),v.end());
         int low=0;
         int high =maximum;
         
-        int leftbest,rightbest;
-        int leftdiff=INT_MAX;
-          int rightdiff=INT_MAX;
+        int best;
+        int ans=INT_MAX;
 while(low<=high){
     int mid=low+(high-low)/2;
     int sum=fun(v,mid);
     if(sum<target){
-      if(abs(sum-target)<leftdiff){
-          leftdiff=abs(sum-target);
-              leftbest=mid;
-      }  
-        low=mid+1;
+    if(abs(sum-target)<=ans){
+         if(ans==abs(sum-target)){
+               best=min(mid,best);   
+          }else{
+                     best=mid;
+          }
+ans=abs(sum-target);
+
+      }          low=mid+1;
     }else{
-      if(abs(sum-target)<rightdiff){
-          rightdiff=abs(sum-target);
-              rightbest=mid;
+      if(abs(sum-target)<=ans){
+          if(ans==abs(sum-target)){
+               best=min(mid,best);   
+          }else{
+                     best=mid;
+          }
+ans=abs(sum-target);
+        
+       
       }  
         
         
@@ -44,6 +53,6 @@ while(low<=high){
         
         
         
-        return leftdiff<=rightdiff ? leftbest :rightbest;
+        return best;
     }
 };
