@@ -24,12 +24,7 @@ public:
         }
         
         int count=0;
-        for(auto a:dp){
-            cout<<a<<" ";
-        }cout<<endl;
-            for(auto a:cnt){
-cout<<a<<" ";
-            }cout<<endl;
+
         for(int i=0; i<n; i++){
 
             if(dp[i]==ans){
