@@ -1,26 +1,23 @@
 class Solution {
 public:
-    bool binarysearch(vector<int> &v , int target){
+    bool searchMatrix(vector<vector<int>>& v, int target) {
+        int n = v.size();
+        int m = v[0].size();
         int low = 0;
-        int high = v.size()-1;
-        while(low<=high){
-            int mid=low+(high-low)/2;
-            if(v[mid]==target){
-                return true;
-            }
-            if(v[mid]>target){
-                high=mid-1;
+        int high = m-1;
+        
+        while(low<n && high>=0){
+
+            if( v[low][high] == target ) return true;
+            
+            if( v[low][high] > target ){
+              high--;  
             }else{
-                low=mid+1;
+                low++;
             }
+            
         }
         return false;
-    }
-    bool searchMatrix(vector<vector<int>>& v, int target) {
-        for(int i=0; i<v.size(); i++){
-     vector<int> t(v[i].begin(),v[i].end());
-            if(binarysearch(t,target)) return true;
-          }
-        return false;
+        
     }
 };
