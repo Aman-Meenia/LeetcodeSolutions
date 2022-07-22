@@ -11,30 +11,30 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
-        vector<int> v1;
-        vector<int> v2;
-        
+ListNode * low=new ListNode(NULL);
+ListNode * n1=low;
+        ListNode * high=new ListNode(NULL);
+        ListNode * n2=high;
         while(head!=NULL){
             if(head->val<x){
-                v1.push_back(head->val);
-            }else {
-                   v2.push_back(head->val);
+                 ListNode * n=new ListNode(head->val);
+                n1->next=n;
+                n1=n1->next;
+            }else{
+                ListNode * n=new ListNode(head->val);
+                n2->next=n;
+                n2=n2->next; 
             }
+            
+            
+            
+            
+            
             head=head->next;
         }
-        ListNode * ans=new ListNode(NULL);
-        ListNode * temp =ans;
-        for(auto a:v1){
-            ListNode * n=new ListNode(a);
-         temp->next=n;
-            temp=temp->next;
-            }
-        
-        for(auto a:v2){
-            ListNode * n=new ListNode(a);
-         temp->next=n;
-            temp=temp->next;
-            }
-        return ans->next;
+        n2->next=NULL;
+        n1->next=high->next;
+        return low->next;
     }
+    
 };
