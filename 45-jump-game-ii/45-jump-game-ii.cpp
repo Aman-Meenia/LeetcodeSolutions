@@ -10,6 +10,9 @@ public:
             for(int j=i+1; j<=min(i+v[i],n-1); j++){
 
                 dp[j]=min(dp[j],dp[i]+1);
+                if(j==n-1){
+               return dp[j];
+                }
             }
         }
         return dp[n-1];
