@@ -2,18 +2,16 @@ class Solution {
 public:
     
     vector<vector<int> > ans;
-    void fun(vector<int> & v, int i, vector<int> &t,bool vis){
-        if(i==v.size()) {
+ void fun(vector<int> & v, int index, vector<int> &t){
+        
             ans.push_back(t);
-            return;
-        }
-                  fun(v,i+1,t,false);
-            if(i>0&& v[i]==v[i-1] && vis==false){
-return;
-            }
-        t.push_back(v[i]);
-        fun(v,i+1,t,true);
-        t.pop_back();
+       
+for(int i=index; i<v.size(); i++){
+    if(i>index && v[i]==v[i-1]) continue;
+    t.push_back(v[i]);
+    fun(v,i+1,t);
+    t.pop_back();
+}
 
             
         
@@ -26,7 +24,7 @@ return;
         sort(v.begin(),v.end());
         int n = v.size();
         vector<int> t;
-        fun(v,0,t,0);
+        fun(v,0,t);
         return ans;
     }
 };
