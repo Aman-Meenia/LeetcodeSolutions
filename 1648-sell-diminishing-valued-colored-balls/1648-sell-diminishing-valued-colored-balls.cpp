@@ -3,7 +3,7 @@
 class Solution {
 public:
     int maxProfit(vector<int>& v, int order) {
-        priority_queue<pair<int,int> ,vector<pair<int,int> >> pq;
+priority_queue<pair<int,int>,vector<pair<int,int> >> pq;
         unordered_map<int,int> mp;
         for(auto a:v){
            mp[a]+=1; 
@@ -25,48 +25,38 @@ public:
               pq.pop();
             }
             ll temp=a-a1;
-//              if we have more order than temp we choose all orders
-        cout<<" order "<<order<<" temp*b "<<temp*b<<endl;
+
             if(order>=temp*b){
               ll sum1=(ll)a*((ll)a+1)/2;
               ll sum2=(ll)a1*((ll)a1+1)/2;
                 ll t=sum1-sum2;
                 t=(t%mod*b%mod)%mod;
-                cout<<" ans sddhfd dfjk "<<t<<endl;
                 ans=(ans%mod+t%mod)%mod;
+                
                 order-=(temp*b);
-                cout<<ans<<endl;
-                cout<<" order "<<order<<endl;
+              
             }else{
-                cout<<"aman "<<"order"<<order<<endl;
+
               ll sum1=(ll)a*((ll)a+1)/2;
-                // sum1%=mod;
                 ll tt=order/b;
-                // int taken=b*tt;
-                    ll nottaken=order%b;
+                ll nottaken=order%b;
                 ll aa=a-tt;
                 
                  ll sum2=(ll)aa*((ll)aa+1)/2;
-                
-cout<<"sum1 "<<sum1<<" sum2 "<<sum2<<endl;
+             
                 ll t=sum1-sum2; 
-                cout<<" t t is "<<t<<endl;
+       
                  t=(t%mod*b%mod)%mod;
- cout<<" sum we add is "<<t<<endl;
+
                 ans=(ans%mod+t%mod)%mod;
-              cout<<"nottaken "<<nottaken<<endl;
+
         
                 if(nottaken>0){
                      aa-=1;
-                    cout<<" cocndition false "<<endl;
                 sum1=(ll)aa*((ll)aa+1)/2;
-                // sum1%=mod;
-                cout<<sum1<<" sum 2 "<<sum2<<endl;
-
                 t=sum2-sum1;
            ll sumnottaken=(nottaken%mod*t%mod)%mod;
-                cout<<"sum is "<<sumnottaken<<endl;
-       cout<<"ans "<<ans<<" sum "<<sumnottaken<<endl;
+         
                 ans=(ans%mod+sumnottaken%mod)%mod;
                 }
                 
@@ -74,26 +64,11 @@ cout<<"sum1 "<<sum1<<" sum2 "<<sum2<<endl;
             }
             if(a1>0){
           pq.push({a1,b1+b});      
-            }
-
-            
-            
-            
-            
-            
+            }           
         }
         
-        
-        
       return ans;  
-        
-        
-        
-        
-        
-        
-        
-        
+     
         
     }
 };
