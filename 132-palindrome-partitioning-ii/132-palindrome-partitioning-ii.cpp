@@ -12,26 +12,36 @@ bool ispalindrome(int low , int high ,string & s){
 
     return true;
 }
-    int dp[2001];
-    int fun(string & s , int index){
-        if(index==s.size()){
-            return 0;
-        }
-        if(dp[index]!=-1) return dp[index];
-        int ans=INT_MAX;
+    int minCut(string s) {
+        int n = s.size();
+        int dp[n+1];
+memset(dp,0,sizeof dp);
         
-        for(int i=index; i<s.size(); i++){
-            if(ispalindrome(index,i,s)){
-            int temp=(1+fun(s,i+1));
+//         base case
+
+             dp[n]=0;
+
+        
+        for(int i=n-1; i>=0; i--){
+   int ans=INT_MAX;
+             for(int k=i; k<s.size(); k++){
+            if(ispalindrome(i,k,s)){
+            int temp=(1+dp[k+1]);
                 ans=min(ans,temp);
             }
         }
         
-        return dp[index]=ans;
+   dp[i]=ans;  
+            
+            
+        }
         
-    }
-    int minCut(string s) {
-memset(dp,-1,sizeof dp);
-         return fun(s,0)-1;
+        
+        
+        
+        
+        
+        
+         return dp[0]-1;
     }
 };
