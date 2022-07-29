@@ -1,21 +1,8 @@
 class Solution {
 public:
-    
-    int dp[200][10001];
-    bool fun(vector<int> & v, int index , int target){
-        if(target==0) return true;
-        if(index==v.size()) return false;
-     if(dp[index][target]!=-1) return dp[index][target];
-        if(v[index]<=target){
-          return dp[index][target]= fun(v,index+1,target-v[index])||fun(v,index+1,target);;
-        }else{
-      return dp[index][target]=fun(v,index+1,target);
-        }
-    
 
-    }
     bool canPartition(vector<int>& v) {
-        memset(dp,-1,sizeof dp);
+      
 int sum=0;
 for(auto a:v){
     sum+=a;
@@ -24,7 +11,27 @@ for(auto a:v){
             return false;
         }
         int target = sum/2;
-        return fun(v,0,target);
+        
+        int n =v.size();
+       vector<vector<bool> > dp(n+1,vector<bool>(target+1,false));
+        for(int i=0; i<=n; i++){
+            dp[i][0]=true;
+        }
+        for(int i=n-1; i>=0; i--){
+            for(int j=1; j<=target; j++){
+             if(v[i]<=j){
+           dp[i][j]= dp[i+1][j-v[i]] || dp[i+1][j];
+        }else{
+dp[i][j]=dp[i+1][j];
+        }    
+            }
+        }
+        
+        
+        
+        
+        
+        return dp[0][target];
         
         
     }
