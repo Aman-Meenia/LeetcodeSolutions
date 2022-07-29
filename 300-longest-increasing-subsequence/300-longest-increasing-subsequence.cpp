@@ -1,19 +1,28 @@
 class Solution {
 public:
-    int dp[2500][2501];
-    int lis(vector<int>&v, int index, int previous){
-        if(index>=v.size()) return 0;
-        if(dp[index][previous+1]!=-1) return dp[index][previous+1];
-        int t=lis(v,index+1,previous);
+    int fun(vector<int> & v){
+        int n = v.size();
+vector<int> dp(n+1,1);
+        int ans=0;
+        for(int i=0; i<n; i++){
+            // cout<<" v[i] "<<v[i]<<endl;
+            for(int j=0; j<i; j++){
+                // cout<<v[j]<<" ";
+                if(v[i]>v[j]){
+                    dp[i]=max(dp[j]+1,dp[i]);
+                }
+            }
 
-        if(previous==-1 || v[index]>v[previous]){
-           t=max(t,1+lis(v,index+1,index));
         }
-        return dp[index][previous+1]=t;
+        for(auto a:dp){
+            // cout<<a<<" "<<endl;
+        ans=max(ans,a);
+            }
+        return ans;
+        
     }
-    
-    int lengthOfLIS(vector<int>& v) {
-        memset(dp,-1,sizeof dp);
-        return lis(v,0,-1);
+    int lengthOfLIS(vector<int>& nums) {
+        
+        return fun(nums);
     }
 };
