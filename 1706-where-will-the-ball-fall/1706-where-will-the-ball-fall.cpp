@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    
+    int dp[101][101];
     int fun(vector<vector<int> > & v, int a , int b){
 
         int n = v.size();
@@ -13,27 +13,21 @@ public:
         int y = b+1;    
 if(x>=0 && y>=0 && x<n && y<m){
     if(v[a][b]==1 && v[x][y]==1){
-      return  fun(v,a+1,b+1);
+        if(dp[a+1][b+1]!=-2) return dp[a+1][b+1];
+      return  dp[a+1][b+1]=fun(v,a+1,b+1);
     }
 }
      x = a;
        y = b-1;    
 if(x>=0 && y>=0 && x<n && y<m){
     if(v[a][b]==-1 && v[x][y]==-1){
-       return fun(v,a+1,b-1);
+              if(dp[a+1][b-1]!=-2) return dp[a+1][b-1];
+       return dp[a+1][b-1] = fun(v,a+1,b-1);
     }
 }
           
           
           
-
-        
-        
-        
-        
-        
-   
-    
       }
         
               return -1;
@@ -46,7 +40,11 @@ if(x>=0 && y>=0 && x<n && y<m){
     
     
     vector<int> findBall(vector<vector<int>>& v) {
-        
+ for(int i=0; i<101; i++){
+     for(int j=0; j<101; j++){
+         dp[i][j]=-2;
+     }
+ }
         
     int n = v.size();
         int m = v[0].size();
