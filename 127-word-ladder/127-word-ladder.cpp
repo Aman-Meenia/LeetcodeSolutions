@@ -2,11 +2,13 @@ class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         
+//         THIS MAP WE KEEP TRACK OF WORDS WHICH ARE ALREADY VISITED
         
+//         EXAMPLE -> HOT -> DOG AND DOG AGAIN BE CONVERTED INTO THE HOT 
         
          unordered_set<string> mp;
         
-        
+//          FIRSTLY WE INSERT ALL THE WORDS IN THE SET TO CHECK WHETHER IT IS PRESENT IN A OUR WORDLIST OR NOT
         
         unordered_set<string> st;
         
@@ -28,7 +30,7 @@ public:
                 q.pop();
                 
                 for(int k=0; k<t.size(); k++){
-                    
+//                      FOR LOOP TO MAKE ALL THE POSSIBLE ANSWER 
                     for(int pp=0; pp<26; pp++){
                         string tempp = t;
                         char change = 'a'+pp;
@@ -40,6 +42,8 @@ public:
                             q.push(tempp);
                             mp.insert(tempp);
                         }
+                        
+//                          IF OUR STRING EQUAL TO ANS SIMPLY RETURN 
             if(tempp==endWord && st.find(endWord)!=st.end()) return mindistance;
                             
                             
