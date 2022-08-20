@@ -2,33 +2,36 @@
 class Solution {
 public:
     int minRefuelStops(int target, int startfuel, vector<vector<int>>& stations) {
-int ans = 0 ;
-        ll maxrange = startfuel;
+       int n = stations.size();
+        int ans = 0;
         sort(stations.begin(),stations.end());
-  int n = stations.size();
-        vector<ll> dp(n+1);
-        dp[0]=startfuel;
-        for(int i=0; i<n; i++){
+        priority_queue<int,vector<int>> pq;
+
+        int temp=0;
+        ll maxrange=startfuel;
+        if(maxrange>=target) return 0;
+        
+       do{
+          
             
-            
-            for(int t=i; t>=0; t--){
-                if(dp[t]>=stations[i][0]){
-         dp[t+1] = max(dp[t + 1], dp[t] + stations[i][1]);
-                }else{
-                    break;
+                while(temp<n && stations[temp][0]<=maxrange){
+pq.push(stations[temp][1]);
+                    temp++;
+                    
                 }
-            }
-        }
-        
-        
-        
-        
-        
-        for(int i=0; i<=n; i++){
-            if(dp[i]>=target) return i;
-        }
-        
-        
+           // cout<<pq.size()<<endl;
+           if(pq.size()>0){
+               
+            maxrange+=pq.top();
+               // cout<<"maxrange "<<maxrange<<endl;
+               
+            pq.pop();
+           }
+            ans+=1;
+        if(maxrange>=target) return ans;
+            
+            
+        } while(pq.size()>0 || temp<n && stations[temp][0]<=maxrange);
         
         
         
