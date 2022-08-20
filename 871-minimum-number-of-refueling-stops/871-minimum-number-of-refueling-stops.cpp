@@ -1,15 +1,37 @@
+#define ll long long 
 class Solution {
 public:
-
-int minRefuelStops(int target, int cur, vector<vector<int>> s) {
-        int i = 0, res;
-        priority_queue<int>pq;
-        for (res = 0; cur < target; res++) {
-            while (i < s.size() && s[i][0] <= cur)
-                pq.push(s[i++][1]);
-            if (pq.empty()) return -1;
-            cur += pq.top(), pq.pop();
+    int minRefuelStops(int target, int startfuel, vector<vector<int>>& stations) {
+int ans = 0 ;
+        ll maxrange = startfuel;
+        sort(stations.begin(),stations.end());
+  int n = stations.size();
+        vector<ll> dp(n+1);
+        dp[0]=startfuel;
+        for(int i=0; i<n; i++){
+            
+            
+            for(int t=i; t>=0; t--){
+                if(dp[t]>=stations[i][0]){
+         dp[t+1] = max(dp[t + 1], dp[t] + stations[i][1]);
+                }else{
+                    break;
+                }
+            }
         }
-        return res;
+        
+        
+        
+        
+        
+        for(int i=0; i<=n; i++){
+            if(dp[i]>=target) return i;
+        }
+        
+        
+        
+        
+        
+        return -1;
     }
 };
