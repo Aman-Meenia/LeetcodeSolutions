@@ -2,13 +2,20 @@
 class Solution {
 public:
     bool isPowerOfFour(int n) {
-
-        for(int i=0; i<1000; i++){
-            ll t = pow(4,i);
-            if(t==n) return true;
-            if(t>n) return false;
-        }
-
-        return false;
+while(n>1){
+      if(n%4) return false;
+    n=n/4;
+}
+        return n==1;
     }
 };
+// class Solution {
+// public:
+//     bool isPowerOfFour(int num) {
+//         while(num > 1) {
+//             if(num % 4)return false;
+//             num /= 4;
+//         }
+//         return num == 1;
+//     }
+// };
