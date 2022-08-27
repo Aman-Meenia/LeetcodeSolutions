@@ -2,17 +2,21 @@ class Solution {
 public:
 //      how to find. the subarray sum less than equal to k  
     int fun(vector<int> & v, int k){
-        set<int> accuSet;
-            accuSet.insert(0);
-            int curSum = 0, curMax = INT_MIN;
-            for (int sum : v) {
-                curSum += sum;
-                set<int>::iterator it = accuSet.lower_bound(curSum - k);
-                if (it != accuSet.end()) curMax = std::max(curMax, curSum - *it);
-                accuSet.insert(curSum);
+  int n = v.size();
+     set<int> st;
+        st.insert(0);
+        int ans =INT_MIN;
+        int cursum = 0;
+        for(int i=0; i<n; i++){
+cursum+=v[i];
+        auto it = st.lower_bound(cursum-k);
+            if(it!=st.end()){
+                ans = max(ans,cursum-*it);
             }
-
-   return curMax;
+            st.insert(cursum);
+        
+        }
+return ans;
     }
     
     
@@ -38,6 +42,8 @@ public:
             
             
         }
+        
+
         return ans;
         
     }
