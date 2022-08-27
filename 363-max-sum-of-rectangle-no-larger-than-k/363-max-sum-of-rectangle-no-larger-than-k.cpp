@@ -1,6 +1,6 @@
 class Solution {
 public:
-    
+//      how to find. the subarray sum less than equal to k  
     int fun(vector<int> & v, int k){
         set<int> accuSet;
             accuSet.insert(0);
