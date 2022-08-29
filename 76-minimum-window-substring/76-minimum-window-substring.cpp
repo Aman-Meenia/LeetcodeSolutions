@@ -26,7 +26,7 @@ public:
             while(low<=high && st.find(s[low])==st.end() || low<high && mp[s[low]]>st[s[low]]){
 
                 if(mp.find(s[low])!=mp.end()){
-           if(mp[s[low]]<=st[s[low]]) totalcnt-=1;
+           // if(mp[s[low]]<=st[s[low]]) totalcnt-=1;
                     mp[s[low]]-=1;
 
                     if(s[low]==0){
