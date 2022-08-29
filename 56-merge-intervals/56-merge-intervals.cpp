@@ -1,28 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& v) {
+     sort(v.begin(),v.end());
+        int start=v[0][0];
+        int n = v.size();
+        int end = v[0][1];
         vector<vector<int> > ans;
-        int n=v.size();
-        sort(v.begin(),v.end());
-        int previousstart=v[0][0];
-        
-         int previousend=v[0][1];
         for(int i=1; i<n; i++){
-            int start=v[i][0];
-            int end=v[i][1];
-            if(start<=previousend){
-                previousend=max(end,previousend);
-            }else{
-                ans.push_back({previousstart,previousend});
-                previousstart=start;
-                    previousend=end;
-            }
-            
-            
+           if(v[i][0]<=end){
+              end=max(end,v[i][1]); 
+           } else{
+                ans.push_back({start,end});
+          start=v[i][0];
+               end=v[i][1];
+           }
         }
-         ans.push_back({previousstart,previousend});
+        
+        ans.push_back({start,end});
         return ans;
-        
-        
     }
 };
