@@ -39,9 +39,7 @@ int low = 0;
         int high = 0;
         int size = temp.size();
         int ans = 0;
-        for(auto a:left){
-            cout<<a<<" ";
-        }cout<<endl;
+      
         while(high<size){
             
             if(high-low+1==k){
@@ -50,11 +48,9 @@ int low = 0;
                 int startcnt=1;
                 int endcnt=1;
                 if(start>0){
-                    cout<<start<<endl;
                     startcnt+=left[start-1];
                 }
                 if(end<n-1){
-                    cout<<end<<endl;
                     endcnt+=right[end+1];
                 }
                 
