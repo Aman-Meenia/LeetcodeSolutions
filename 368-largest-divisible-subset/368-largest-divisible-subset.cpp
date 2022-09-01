@@ -1,37 +1,45 @@
 class Solution {
 public:
     vector<int> largestDivisibleSubset(vector<int>& v) {
-        int n=v.size();
-        vector<int> anss;
         sort(v.begin(),v.end());
+      vector<int> ans;
+        int n = v.size();
         vector<int> dp(n,1);
-        vector<int> temp(n);
-        for(int i=0; i<n; i++){
-temp[i]=i;
+        vector<vector<int> > temp;
+        for(auto a:v){
+            temp.push_back({a});
         }
-        int ans=1;
-        int lastindex=0;
         for(int i=0; i<n; i++){
+            
             for(int j=0; j<i; j++){
-                if(dp[j]+1>dp[i] && v[i]%v[j]==0){
-                    dp[i]=dp[j]+1;
-                    temp[i]=j;
+                if(v[i]%v[j]==0){
+                    if(dp[j]+1>dp[i]){
+                           dp[i]=max(dp[j]+1,dp[i]);
+                        temp[i].clear();
+          temp[i].assign(temp[j].begin(),temp[j].end());
+                        temp[i].push_back(v[i]);
+                    }
+                 
                 }
-            
-            }
-            if(dp[i]>ans){
-                ans=dp[i];
-                lastindex=i;
-            
+                
             }
             
+            
         }
-        anss.push_back(v[lastindex]);
-        while(temp[lastindex]!=lastindex){
-            lastindex=temp[lastindex];
-            anss.push_back(v[lastindex]);
+int maxans=1;
+        for(auto a:dp){
+            maxans = max(maxans,a);
         }
-reverse(anss.begin(),anss.end());
-        return anss;
+       
+        
+       
+        for(int i=0; i<n; i++){
+            if(temp[i].size()==maxans){
+                return temp[i];
+            }
+        }
+        
+        
+return {-1};
     }
 };
