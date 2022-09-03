@@ -13,9 +13,7 @@ t[0]=max(t[0],v[i][0]);
             
             
         }
-        for(auto a:t){
-            cout<<a<<" ";
-        }cout<<endl;
+       
         if(t==target){
             return true;
         }
