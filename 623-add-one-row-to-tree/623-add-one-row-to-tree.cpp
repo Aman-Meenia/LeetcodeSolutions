@@ -11,89 +11,65 @@
  */
 class Solution {
 public:
-    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
-        int t=1;
-        
-
-        
+    TreeNode* addOneRow(TreeNode* root, int target, int depth) {
         if(depth==1){
-                TreeNode * ans=new TreeNode(val);
-            ans->left=root;
-                ans->right=NULL;
+            TreeNode * ans = new TreeNode(target);
+            ans->left= root;
+            ans->right= NULL;
             return ans;
         }
-        queue<TreeNode *> q;
+        
+        int temp = 0;
+queue<TreeNode *> q;
         q.push(root);
         while(!q.empty()){
-            int size=q.size();
-            if(t==depth-1){
-
+            int size= q.size();
+            if(temp==depth-2){
                 
                 for(int i=0; i<size; i++){
-
-                    TreeNode * n=q.front();
-                    q.pop();
-           TreeNode * t1=new TreeNode(INT_MAX);
-           TreeNode * t2=new TreeNode(INT_MAX);
-
                     
-                    if(n->left){
-                        t1=n->left;
-                    }
-                    if(n->right){
-                        t2=n->right;
-                    }
-                 TreeNode * p=new TreeNode(val);
-                    n->left=p;
-                    
-                   TreeNode * pp=new TreeNode(val);
-                    n->right=pp;
-                    // cout<<t1->val<<endl;
-    if(t1->val!=INT_MAX){
-       n->left->left=t1;
-        }
-
-              if(t2->val!=INT_MAX){
-             n->right->right=t2;
-            }
-
-                    
-                    
-                }
-               return root; 
-             }else{
+                   TreeNode * n = q.front();
                 
-                for(int i=0; i<size; i++){
- TreeNode * n=q.front();
                     q.pop();
+            TreeNode * t = new TreeNode();
+                    t->val=target;
+                         TreeNode * t2 = new TreeNode();
+                    t2->val=target;
+                    
+t->left=n->left;
+                    t2->right=n->right;
+                    n->left=t;
+                    n->right=t2;
+                
+                    
+}
+                return root;
+            }else{
+                              
+                for(int i=0; i<size; i++){
+                            TreeNode * n = q.front();
+q.pop();
                     if(n->left){
-                        
                         q.push(n->left);
                     }
                     if(n->right){
-                 
                         q.push(n->right);
                     }
-                }
-             
-                }
-            t++;
+} 
+                
+                
+                
+            }
+            temp++;
             
-          
+            
+            
         }
-        
         
         
         
         
         return root;
-        
-        
-        
-        
-        
-        
-        
         
         
     }
