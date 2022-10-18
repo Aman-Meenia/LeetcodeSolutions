@@ -11,37 +11,41 @@
  */
 class Solution {
 public:
-    
-  
-    vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        // left root right 
-        stack<TreeNode*> st;
-        // st.push(root);
-                    TreeNode * n = root;
-        while(true){
-// cout<<n->val<<endl;
-       if(n!=NULL){
-           cout<<n->val<<endl;
-           st.push(n);
-           n=n->left;
-       }else{
-           // cout<<st.size()<<endl;
-           if(st.empty()) return ans;
-           else {
-TreeNode * t = st.top();
-               // cout<<"AMAN "<<endl;
-               ans.push_back(st.top()->val);
-               st.pop();
-               n=t->right;
-               
-           }
-           
-       }
-           
-        }
-        
+    vector<int> v;
+    void iterativeiorder(TreeNode * root){
 
-        return ans;
+if(root==NULL) return;
+stack<TreeNode* >st;
+
+TreeNode * n = root;
+
+while(true){
+
+while(n!=NULL){
+	st.push(n);
+	n=n->left;
+}
+if(st.empty()){
+	for(auto a:v){
+		cout<<a<<" ";
+	}cout<<endl;
+	return ;
+}else{
+TreeNode * t = st.top();
+      	v.push_back(t->val);
+n=t->right;
+  
+st.pop();
+
+
+}
+
+
+}
+
+}
+    vector<int> inorderTraversal(TreeNode* root) {
+        iterativeiorder(root);
+        return v;
     }
 };
