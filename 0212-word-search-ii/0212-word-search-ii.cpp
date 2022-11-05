@@ -69,11 +69,9 @@ int minsize=INT_MAX;
         int m= v[0].size();  
    
     // cout<<" temp "<<temp<<endl;
-if(temp.size()>=minsize){
-            root->insertword(root,temp);
-}
+// if(    root->insertword(root,temp);
         if(temp.size()>=maxsize){
-// root->insertword(root,temp);
+root->insertword(root,temp);
             return ;
         }
 int array1[4]={1,-1,0,0};
@@ -91,6 +89,7 @@ int array1[4]={1,-1,0,0};
             }
         }
         
+            root->insertword(root,temp);
 
     }
     
