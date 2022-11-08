@@ -9,7 +9,7 @@ public:
         // mp['o']=4;  
         // mp['u']=5;
         char mp[26]={1,0,0,0,2,0,0,0,4,0,0,0,0,0,8,0,0,0,0,0,16,0,0,0,0,0};
-        ll mask = 0;
+        int mask = 0;
         ll maxans=0;
         vector<ll> dp(32,-1);
         int n = s.size();
@@ -21,7 +21,7 @@ public:
         maxans= max(maxans, i - dp[mask]);
             
         }
-        int ans = 13;
+
         return maxans;
     }
 };
