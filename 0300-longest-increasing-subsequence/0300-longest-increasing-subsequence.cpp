@@ -6,21 +6,23 @@ public:
                 int n = v.size();
         vector<int> dp(n,0);
         
-        int ans =0;
-
+        // int ans =0;
+        
+vector<int> ans;
         for(int i=0; i<n; i++){
             int cnt = 0;
-            for(int j=0; j<i; j++){
-                if(v[j]<v[i])
-                cnt =max(cnt,dp[j]);
+            if(ans.size()==0 ||ans.back()<v[i]){
+                ans.push_back(v[i]);
+            }else{
+                int index = lower_bound(ans.begin(),ans.end(),v[i])-ans.begin(); 
+                // cout<<"INDEX "<<index<<endl;
+                ans[index]=v[i];
             }
-            dp[i]=cnt+1;
+
             
         }
-        for(auto a:dp){
-            ans = max(ans,a);
-        }
-        return ans;
+       
+       return ans.size();
     }
     
     
