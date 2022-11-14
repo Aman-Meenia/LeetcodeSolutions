@@ -2,34 +2,24 @@ class Solution {
 public:
     
     
-    int fun(vector<int> & v){
-                int n = v.size();
-        vector<int> dp(n,0);
-        
-        // int ans =0;
-        
-vector<int> ans;
-        for(int i=0; i<n; i++){
-            int cnt = 0;
-            if(ans.size()==0 ||ans.back()<v[i]){
-                ans.push_back(v[i]);
-            }else{
-                int index = lower_bound(ans.begin(),ans.end(),v[i])-ans.begin(); 
-                // cout<<"INDEX "<<index<<endl;
-                ans[index]=v[i];
-            }
-
-            
-        }
-       
-       return ans.size();
+    int dp[2502][2502];
+int recursion(vector<int> & v , int index, int previous){
+    
+    if(index==v.size()) return 0;
+    if(dp[index][previous+1]!=-1) return dp[index][previous+1];
+    int ans1=0;
+    int ans2=0;
+    if(previous==-1||v[index]>v[previous]){
+       ans1=1+recursion(v,index+1,index);
     }
-    
-    
+    ans2=recursion(v,index+1,previous);
+    return dp[index][previous+1]=max(ans1,ans2);
+}
     
     
     
     int lengthOfLIS(vector<int>& v) {
-return fun(v);
+        memset(dp,-1,sizeof dp);
+        return recursion(v,0,-1);
     }
 };
