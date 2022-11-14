@@ -1,47 +1,25 @@
 class Solution {
 public:
-//     int dp[1001][1001];
-//     int fun(string & s1, int n , string & s2 , int m ){
-//         if(n==s1.size() || m==s2.size()) return 0;
-//         int ans=0;
-//         if(dp[n][m]!=-1) return dp[n][m];
-//         if(s1[n]==s2[m]){
-//             ans =1+fun(s1,n+1,s2,m+1);
-//         }else{
-//          ans=max(fun(s1,n+1,s2,m),fun(s1,n,s2,m+1));
-            
-//         }
-//         return dp[n][m]=ans;
-//     }
-    int longestCommonSubsequence(string s1, string s2) {
-        int n = s1.size();
-        int m = s2.size();
-        int dp[n+2][m+2];
-// BASE CASE 
-         for(int i=0; i<n ;i++){
-             dp[i][m]=0;
-         }
-        for(int i=0; i<m; i++){
-            dp[n][i]=0;
+    int dp[1001][1001];
+    int fun(string & s1 , string & s2, int index1, int index2){
+        
+        if(index1==s1.size() ||s2.size()==index2){
+            return 0;
         }
- int ans=0;
-        memset(dp,0,sizeof dp);
-        for(int i=n-1; i>=0; i--){
-            for(int j=m-1; j>=0; j--){
-             int ans=0;
-        if(s1[i]==s2[j]){
-            ans =1+dp[i+1][j+1];
+        if(dp[index1][index2]!=-1) return dp[index1][index2];
+         int ans1=0,ans2=0,ans3=0;
+        if(s1[index1]==s2[index2]){
+         ans1=1+fun(s1,s2,index1+1,index2+1);
         }else{
-         ans=max(dp[i+1][j],dp[i][j+1]);
-            
+          ans2=  fun(s1,s2,index1+1,index2);
+            ans3 =fun(s1,s2,index1,index2+1);
         }
-                   dp[i][j]=ans;
-        }
-    
-            
-        }
+        return dp[index1][index2]= max(max(ans1,ans2),ans3);
         
         
-       return dp[0][0]; 
+    }
+    int longestCommonSubsequence(string s1 ,string s2) {
+        memset(dp,-1,sizeof dp);
+        return fun(s1,s2,0,0);
     }
 };
