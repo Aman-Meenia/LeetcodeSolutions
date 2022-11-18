@@ -1,96 +1,75 @@
 
-
-
-class TrieNode{
+class Trie1 {
 public:
-    TrieNode * children[26];
-    bool End_Of_Word=false;
-    char data;
-TrieNode(){
-    for(int i=0; i<26;  i++){
-        children[i]=NULL;
-    }
-}
- 
- 
-    void insertword(TrieNode *root , string s){
-TrieNode *currentnode = root;
-for(int i=0; i<s.size(); i++){
-    char cur = s[i];
-    //  if Element is not already present in our trie
-    if(currentnode->children[cur-'a']==NULL){
-        TrieNode * n = new TrieNode();
-        currentnode->children[cur-'a']=n;
-    }
-    //  if element is already present we move to next childre
-    currentnode = currentnode->children[cur-'a'];
+    
+        Trie1 *children[26];
+    bool EndOfString=false;
 
-}
-// OUR WORD ENDS SO WE MAKE ITS CHILDREN NODE TRUE
-currentnode->End_Of_Word=true;
-
-    }
-
-
-
-    bool searchword(TrieNode * root , string s){
-TrieNode * currentnode = root;
-        for(int i=0; i<s.size(); i++){
-            char cur= s[i];
-
-            if(currentnode->children[cur-'a']==NULL) return false;
-            currentnode=currentnode->children[cur-'a'];
+    Trie1(){
+        for(int i=0; i<26; i++){
+            children[i]=NULL;
         }
-        if(currentnode->End_Of_Word==true) return true;
-        return false;
-    }
+    } 
+    
+    
+    void insert(Trie1 * &root,string s) {
+         Trie1 * temp = root;
 
-
-bool startwithprefixword(TrieNode * root , string s){
-    TrieNode * currentNode =root;
     for(int i=0; i<s.size(); i++){
-        char cur=s[i];
-        if(currentNode->children[cur-'a']==NULL) return false;
-        currentNode=currentNode->children[cur-'a'];
+        if(temp->children[s[i]-'a']==NULL){
+Trie1 * n = new Trie1();
+temp->children[s[i]-'a']=n;
+        }
+        temp = temp->children[s[i]-'a'];
     }
-    return true;
-}
+    temp->EndOfString=true;
+    }
+    
+    bool search(Trie1 * &root,string s) {
+         Trie1 * temp = root;
+    for(int i=0; i<s.size(); i++){
+        if(temp->children[s[i]-'a']==NULL){
+return false;
+        }
+        temp = temp->children[s[i]-'a'];
+    }
 
+    if(temp->EndOfString) return true;
+    return false;
+    }
+    
+    bool startsWith(Trie1 * &root,string s) {
+            Trie1 * temp = root;
+    for(int i=0; i<s.size(); i++){
+        if(temp->children[s[i]-'a']==NULL){
+return false;
+        }
+        temp = temp->children[s[i]-'a'];
+    }
 
+return true;
 
-
-
-
-
-
-
+    }
 };
-
-
-
-
-
 
 class Trie {
 public:
-    TrieNode * root=new TrieNode();
+    Trie1 *t= new Trie1();
     
     Trie() {
         
     }
     
     void insert(string word) {
-       root->insertword(root,word);
+        t->insert(t,word);
     }
     
     bool search(string word) {
-     if(root->searchword(root,word)) return true;
-        return false;
+        return t->search(t,word);
     }
     
     bool startsWith(string prefix) {
-        if(root->startwithprefixword(root,prefix)) return true;
-        return false;
+        return t->startsWith(t,prefix);
     }
 };
 
