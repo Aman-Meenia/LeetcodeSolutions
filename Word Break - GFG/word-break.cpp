@@ -15,6 +15,7 @@ class Solution
 {
 public:
 set<string>st;
+int dp [1101][1101];
 bool fun(string &s , int low , int index){
     if(index==s.size()){
         if(low==s.size()){
@@ -22,6 +23,7 @@ bool fun(string &s , int low , int index){
         }
         return false;
     }
+    if(dp[low][index]!=-1) return dp[low][index];
 
 bool ans1=false,ans2=false;
 
@@ -29,7 +31,7 @@ bool ans1=false,ans2=false;
        ans1= fun(s,index+1,index+1);
     }
     ans2=fun(s,low,index+1);
-return ans1||ans2;
+return dp[low][index]=ans1||ans2;
 
 
 
@@ -39,7 +41,7 @@ return ans1||ans2;
     for(auto it:B){
         st.insert(it);
     }
-    
+    memset(dp,-1,sizeof dp);
     if(fun(A,0,0)){
         return 1;
     }
