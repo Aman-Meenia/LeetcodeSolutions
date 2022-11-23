@@ -7,58 +7,47 @@ class Solution
 {
 	public:
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
-	
-int minimumspanningtree(vector<vector<int> >adj[],int n){
-
-vector<int> parent(n,-1);
-vector<bool> mst(n,false);
-vector<int> key(n,INT_MAX);
-
-key[0]=0;
-
-for(int i=0; i<n; i++){
-    int minimum=INT_MAX;
-    int index;
- 
-    for(int j=0; j<n; j++){
-        if(mst[j]==false&&key[j]<minimum){
-minimum=key[j];
-index=j;
-            
-        }
-    }
-
-
-    mst[index]=true;
-
-    for(auto it:adj[index]){
-        int weight=it[1];
-        int t = it[0];
-        if(mst[t]==false && weight<key[t]){
-            key[t]=weight;
-            parent[t]=index;
-        }
-
-    }
-
-
-
-
-
-
-}
-int ans = 0;
-for(int i=0; i<n; i++){
-    ans+=key[i];
-}
-return ans;
-
-}
-
-    int spanningTree(int V, vector<vector<int>> adj[])
+    int spanningTree(int n, vector<vector<int>> adj[])
     {
         // code here
-        return minimumspanningtree(adj,V);
+        priority_queue<pair<int,int> ,vector<pair<int,int> > ,greater<pair<int,int> > > pq;
+        // priority_queue<pair<int,int> ,vector<pair<int,int> > ,greater<pair<int,int>> pq;
+        
+        vector<int> key(n,INT_MAX);
+        vector<int> parent(n,-1);
+        vector<bool> mst(n,false);
+        pq.push({0,0});
+        key[0]=0;
+        
+        while(!pq.empty()){
+            int index = pq.top().second;
+            mst[index]=true;
+            pq.pop();
+            
+            for(auto it :adj[index]){
+                
+                int weight=it[1];
+                int t = it[0];
+                if(mst[t]==false && weight<key[t]){
+                    parent[t]=index;
+                    key[t]=weight;
+                    pq.push({weight,t});
+                }
+                
+                
+            }
+            
+            
+        }
+        // for(auto a:key) cout<<a<<" ";
+        // cout<<endl;
+        int ans=0;
+        for(auto a:key){
+            ans+=a;
+        }
+        return ans;
+        
+        
     }
 };
 
