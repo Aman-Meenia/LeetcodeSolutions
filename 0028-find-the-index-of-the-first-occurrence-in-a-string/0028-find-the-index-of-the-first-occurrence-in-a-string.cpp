@@ -3,27 +3,29 @@ public:
     int strStr(string s, string t) {
         int n =s.size();
         int m = t.size();
-        if(m>n) return -1;
-        vector<int> temp;
-        
-for(int i=0; i<n; i++){
-    if(s[i]==t[0]){
-        temp.push_back(i);
+       if(m>n) return -1;
+
+        for(int i=0; i<=n-m; i++){
+            int k = i;
+            bool cnd = true;
+
+    for(int j=0; j<m; j++){
+        if(s[k]==t[j]){
+            k++;
+        }else{
+   
+            cnd = false;
+                 break;
+        }
     }
-}
-        for(int i=0; i<temp.size(); i++){
-            int tt = temp[i];
-            if(n-tt+1>=m){
-                if(s.substr(tt,m)==t){
-                    return tt;
-                }
+            cout<<cnd<<endl;
+            if(cnd==true){
+      
+ return i;
             }
         }
-        
-        int ans ;
-        
-        
         return -1;
+  
         
         
         
