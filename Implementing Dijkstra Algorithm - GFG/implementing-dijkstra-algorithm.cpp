@@ -11,15 +11,15 @@ class Solution
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         vector<int> distance(V,INT_MAX);
-        priority_queue<pair<int,int> ,vector<pair<int,int> > ,greater<pair<int,int> > > pq;
+       queue<pair<int,int> > pq;
         // priority_queue<pair<int,int> ,vector<pair<int,int> > , greater<int> > pq;
         
         pq.push({0,S});
         distance[S]=0;
         
         while(!pq.empty()){
-int dis = pq.top().first;
-int n=pq.top().second;
+int dis = pq.front().first;
+int n=pq.front().second;
 pq.pop();
 for(auto it:adj[n]){
     
