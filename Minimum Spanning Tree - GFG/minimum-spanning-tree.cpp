@@ -6,48 +6,78 @@ using namespace std;
 class Solution
 {
 	public:
-	//Function to find sum of weights of edges of the Minimum Spanning Tree.
-    int spanningTree(int n, vector<vector<int>> adj[])
+	//Function to find sum of weights of edges of the Minimum Spanning Tree
+	 
+int parent[1001];
+int Rank[1001];
+ void make_set(int n ){
+    parent[n]=n;
+Rank[n]=0;
+ }
+
+
+int find_parent(int node){
+    if(node==parent[node]){
+        return node;
+    }
+    return parent[node]=find_parent(parent[node]);
+}
+
+void union_fun(int u  , int v){
+    u = find_parent(u);
+    v=find_parent(v);
+    if(Rank[u]<Rank[v]){
+parent[u]=v;
+    }else if(Rank[v]<Rank[u]){
+parent[v]=u;
+    }else{
+        parent[v]=u;
+        Rank[u]+=1;
+
+    }
+}
+ 
+
+int minimumspanningtree(vector<vector<int> >adj[],int n){
+vector<vector<int> > v;
+for(int i=0; i<n; i++){
+
+    for(auto it :adj[i]){
+        v.push_back({it[1],i,it[0]});
+    }
+}
+
+
+sort(v.begin(),v.end());
+
+
+for(int i=0; i<=n; i++){
+make_set(i);
+}
+// int k = 0;
+int ans = 0;
+for(int i=0; i<v.size(); i++){
+int weight = v[i][0];
+int x=v[i][1];
+int y=v[i][2];
+if(find_parent(x)!=find_parent(y)){
+union_fun(x,y);
+ans+=weight;
+}
+
+}
+
+
+
+return ans;
+
+
+
+}
+    int spanningTree(int V, vector<vector<int>> adj[])
     {
+        return minimumspanningtree(adj,V);
         // code here
-        priority_queue<pair<int,int> ,vector<pair<int,int> > ,greater<pair<int,int> > > pq;
-        // priority_queue<pair<int,int> ,vector<pair<int,int> > ,greater<pair<int,int>> pq;
-        
-        vector<int> key(n,INT_MAX);
-        vector<int> parent(n,-1);
-        vector<bool> mst(n,false);
-        pq.push({0,0});
-        key[0]=0;
-        
-        while(!pq.empty()){
-            int index = pq.top().second;
-            mst[index]=true;
-            pq.pop();
-            
-            for(auto it :adj[index]){
-                
-                int weight=it[1];
-                int t = it[0];
-                if(mst[t]==false && weight<key[t]){
-                    parent[t]=index;
-                    key[t]=weight;
-                    pq.push({weight,t});
-                }
-                
-                
-            }
-            
-            
-        }
-        // for(auto a:key) cout<<a<<" ";
-        // cout<<endl;
-        int ans=0;
-        for(auto a:key){
-            ans+=a;
-        }
-        return ans;
-        
-        
     }
 };
 
