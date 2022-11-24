@@ -19,7 +19,7 @@ public:
                 vis[x][y]=1;
             //     cout<<x<<"  y. "<<y<<endl;
             // cout<<target[index]<<endl;
-      if(fun(v,index+1,target,x,y,vis)) return true;     
+      ans = ans||fun(v,index+1,target,x,y,vis);
              vis[x][y]=0;
             }
         } 
