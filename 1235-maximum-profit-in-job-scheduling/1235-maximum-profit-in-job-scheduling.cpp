@@ -1,45 +1,63 @@
 class Solution {
 public:
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& prf) {
-        
-        
-priority_queue<int,vector<int>  > maxpq;
-priority_queue<pair<int,int> ,vector<pair<int,int>> ,greater<pair<int,int> > > pq;
-        int size = startTime.size();
-        vector<vector<int > > v;
-        for(int i=0; i<size; i++){
-            v.push_back({startTime[i],endTime[i],prf[i]});
-         // 
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        int  n = profit.size();
+        vector<vector<int> >v ;
+        for(int i=0; i<n; i++){
+            int a = startTime[i];
+            int b = endTime[i];
+                int c = profit[i];
+            v.push_back({b,a,c});
         }
-
         sort(v.begin(),v.end());
-        
-for(int i=0; i<size; i++){
-int start = v[i][0];
-    int end = v[i][1];
-    int profit = v[i][2];
-    while(!pq.empty() && pq.top().first<=start){
-        maxpq.push(pq.top().second);
-        pq.pop();
-        
-    }
-if(maxpq.size()>0){
-    profit+=maxpq.top();
-}
-    pq.push({end,profit});
-    
-    
-}
-          while(!pq.empty() && pq.top().first<=INT_MAX){
-        maxpq.push(pq.top().second);
-        pq.pop();
-        
-    }
+
+        int ans = 0;
         
         
+        vector<int> dp(n,0);
+        dp[0]=v[0][2];
+
+        for(int i=1; i<n; i++){
+dp[i]=v[i][2];
+      int previous = -1;
+            int low = 0;
+            int high = i-1;
+            while(low<=high){
+int mid = low +(high-low)/2;
+                if(v[mid][0]<=v[i][1]){
+                    previous=mid;
+                    low=mid+1;
+                }else{
+                    high=mid-1;
+                }
+                if(previous!=-1){
+                    dp[i]=v[i][2]+dp[previous];
+                }else{
+                    dp[i]=v[i][2];
+                }
+                dp[i]=max(dp[i],dp[i-1]);
+                
+            }
+            
+            
+            
+            
+            
+            
+        }
         
-      return maxpq.top();  
+        return dp[n-1];
         
+//         for(auto a:dp){
+
+//             ans = max(ans,a);
+//         }
+        
+        
+        
+        
+        
+//         return ans;
         
         
     }
