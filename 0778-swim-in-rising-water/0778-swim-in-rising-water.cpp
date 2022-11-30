@@ -1,8 +1,9 @@
 class Solution {
 public:
     int swimInWater(vector<vector<int>>& v) {
-        queue<pair<int,pair<int,int> >> q;
-        q.push(make_pair(0,make_pair(0,v[0][0])));
+        // queue<pair<int,pair<int,int> >> q;
+        priority_queue<pair<int,pair<int,int>>,vector< pair<int,pair<int,int>>> ,greater<pair<int,pair<int,int>>>>  q;
+        q.push(make_pair(v[0][0],make_pair(0,0)));
         int ans = INT_MAX;
         int n = v.size();
         int m = v[0].size();
@@ -11,9 +12,9 @@ public:
         vector<vector<int> >dp(n,vector<int>(m,INT_MAX));
         dp[0][0]=v[0][0];
         while(!q.empty()){
-int a = q.front().first;
-            int b = q.front().second.first;
-            int val = q.front().second.second;
+int a = q.top().second.first;
+            int b = q.top().second.second;
+            int val = q.top().first;
             if(a==n-1 && b==m-1){
                 ans=min(ans,val);
             }
@@ -33,7 +34,7 @@ int a = q.front().first;
             // break;
         }
         
-        q.push(make_pair(x,make_pair(y,dp[x][y])));
+        q.push(make_pair(dp[x][y],make_pair(x,y)));
     }
                 
                 
