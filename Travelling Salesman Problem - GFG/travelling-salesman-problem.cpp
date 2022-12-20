@@ -7,6 +7,7 @@ using namespace std;
 
 class Solution {
 public:
+int dp[1025][11];
 int fun(vector<vector<int> > & v,int mask , int current_city , int visited  ){
 
 
@@ -14,6 +15,7 @@ if(visited==mask){
     return v[current_city][0];
 }
 
+if(dp[mask][current_city]!=-1) return dp[mask][current_city];
 int ans = INT_MAX;
 
 
@@ -27,7 +29,7 @@ if((mask&(1<<i))==0){
 
 }
 
-return ans;
+return dp[mask][current_city]=ans;
 
 }
 
@@ -35,7 +37,7 @@ return ans;
 int total_cost(vector<vector<int>>cost){
     int n = cost.size();
     int visited=(1<<n)-1;
-    
+    memset(dp,-1,sizeof dp);
     return fun(cost,1,0,visited);    // Code here
 }
 };
