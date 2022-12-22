@@ -23,6 +23,15 @@ struct Job
 };
 */
 
+/*
+struct Job 
+{ 
+    int id;	 // Job Id 
+    int dead; // Deadline of job 
+    int profit; // Profit if job is over before or on deadline 
+};
+*/
+
 class Solution 
 {
     public:
@@ -34,6 +43,7 @@ set<int> st;
 for(int i=1; i<=100; i++){
     st.insert(i);
 }
+vector<int> dp(101,0);
 for(int i=0; i<n; i++){
     pq.push({arr[i].profit,arr[i].dead});
     // cout<<arr[i].dead<<endl;
@@ -50,11 +60,12 @@ while(!st.empty()  && !pq.empty()){
 int prft=pq.top().first;
 int dead=pq.top().second;
 for(int i=dead; i>=1; i--){
-    if(st.find(i)!=st.end()){
+    if(dp[i]==0){
     
         ans+=prft;
         cnt++;
         auto it = st.find(i);
+        dp[i]=1;
         st.erase(it);
         break;
     }
