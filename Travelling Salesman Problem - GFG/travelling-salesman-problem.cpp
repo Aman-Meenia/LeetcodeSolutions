@@ -15,7 +15,7 @@ if(visited==mask){
     return v[current_city][0];
 }
 
-if(dp[mask][current_city]!=-1) return dp[mask][current_city];
+// if(dp[mask][current_city]!=-1) return dp[mask][current_city];
 int ans = INT_MAX;
 
 
