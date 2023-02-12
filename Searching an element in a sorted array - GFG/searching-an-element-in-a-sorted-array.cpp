@@ -10,25 +10,28 @@ class Solution{
     // arr: input array
     // N: size of array
     // K: element to be searche
-    bool fun(int v[], int k , int n){
-        int low=0;
-        int high = n-1;
-        while(low<=high){
-            int mid =low +(high-low)/2;
-            if(v[mid]==k) return true;
-        if(v[mid]>k){
-            high=mid-1;
-        }else{
-            low=mid+1;
-        }
-        }
-        return false;
-    }
+    // bool fun(int v[], int k , int n){
+    //     int low=0;
+    //     int high = n-1;
+    //     while(low<=high){
+    //         int mid =low +(high-low)/2;
+    //         if(v[mid]==k) return true;
+    //     if(v[mid]>k){
+    //         high=mid-1;
+    //     }else{
+    //         low=mid+1;
+    //     }
+    //     low++;
+    //     high--;
+    //     }
+    //     return false;
+    // }
     int searchInSorted(int arr[], int N, int K) 
     { 
-      
-      if(fun(arr,K,N)) return 1;
-      return -1;
+        for(int i=0; i<N; i++){
+            if(arr[i]==K) return 1;
+        }
+        return -1;
     
        // Your code here
        
