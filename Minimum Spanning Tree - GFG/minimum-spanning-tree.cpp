@@ -6,78 +6,73 @@ using namespace std;
 class Solution
 {
 	public:
-	//Function to find sum of weights of edges of the Minimum Spanning Tree
-	 
-int parent[1001];
-int Rank[1001];
- void make_set(int n ){
-    parent[n]=n;
-Rank[n]=0;
- }
+	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+	
+int parent[100000];
+int Rank[100000];
+void make_set(int n ){
+for(int i=0; i<=n; i++){
+
+parent[i]=i;
+Rank[i]=0;
+
+}
+}
 
 
-int find_parent(int node){
-    if(node==parent[node]){
+int parent_find(int node){
+    if(parent[node]==node){
         return node;
     }
-    return parent[node]=find_parent(parent[node]);
+    return parent[node]=parent_find(parent[node]);
 }
 
-void union_fun(int u  , int v){
-    u = find_parent(u);
-    v=find_parent(v);
-    if(Rank[u]<Rank[v]){
+
+void union_find(int u , int v){
+    u = parent_find(u);
+    v = parent_find(v);
+
+if(Rank[u]>Rank[v]){
+    parent[v]=u;
+}else if(Rank[v]>Rank[u]){
 parent[u]=v;
-    }else if(Rank[v]<Rank[u]){
-parent[v]=u;
-    }else{
-        parent[v]=u;
-        Rank[u]+=1;
-
-    }
-}
- 
-
-int minimumspanningtree(vector<vector<int> >adj[],int n){
-vector<vector<int> > v;
-for(int i=0; i<n; i++){
-
-    for(auto it :adj[i]){
-        v.push_back({it[1],i,it[0]});
-    }
-}
-
-
-sort(v.begin(),v.end());
-
-
-for(int i=0; i<=n; i++){
-make_set(i);
-}
-// int k = 0;
-int ans = 0;
-for(int i=0; i<v.size(); i++){
-int weight = v[i][0];
-int x=v[i][1];
-int y=v[i][2];
-if(find_parent(x)!=find_parent(y)){
-union_fun(x,y);
-ans+=weight;
+}else{
+    parent[v]=u;
+    Rank[u]++;
 }
 
 }
 
-
-
-return ans;
-
-
-
-}
-    int spanningTree(int V, vector<vector<int>> adj[])
+    int spanningTree(int n, vector<vector<int>> adj[])
     {
-        return minimumspanningtree(adj,V);
-        // code here
+        
+        vector<vector<int> > v;
+        for(int i=0; i<n; i++){
+            for(auto it :adj[i]){
+                int a= i;
+                int b = it[0];
+                int c = it[1];
+                v.push_back({c,a,b});
+            }
+        }
+        sort(v.begin(),v.end());
+        make_set(n);
+        int ans = 0;
+        for(int i=0; i<v.size(); i++){
+            int wt = v[i][0];
+            int a = v[i][1];
+            int b = v[i][2];
+            
+            if(parent_find(a)!=parent_find(b)){
+                ans+=wt;
+           union_find(a,b);
+            }
+            
+            
+        }
+        return ans;
+        
+        
     }
 };
 
