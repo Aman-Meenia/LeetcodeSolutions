@@ -7,54 +7,31 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	
-vector<int> TOPOLOGICAL_SORT(vector<int> adj[] , int n){
-
-
-    vector<int> Inorder(n,0);
-
-for(int i=0; i<n; i++){
-    for(auto it : adj[i]){
-        Inorder[it]+=1;
+	void TOPOLOGICAL_SORT_DFS(vector<int>  adj[] , int root, vector<int> &vis,vector<int> & ans){
+    vis[root]=1;
+    for(auto it : adj[root]){
+        if(vis[it]==0){
+            vis[it]=1;
+            TOPOLOGICAL_SORT_DFS(adj,it,vis,ans);
+        }
     }
-}
+    ans.push_back(root);
 
-
-
-queue<int> q;
-for(int i=0; i<n; i++){
-    if(Inorder[i]==0){
-        q.push(i);
-    }
-}
-
-vector<int> ans;
-
-while(!q.empty()){
-    int t = q.front();
-    q.pop();
-ans.push_back(t);
-for(auto it : adj[t]){
-
-    Inorder[it]-=1;
-    if(Inorder[it]==0){
-        q.push(it);
-    }
-}
 
 
 }
-return ans;
-
-
-}
-
-
-
-
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    return TOPOLOGICAL_SORT(adj,V);
+	    vector<int> vis(V,0);
+	    vector<int> ans;
+	    for(int i=0; i<V; i++){
+	        if(vis[i]==0)
+	        TOPOLOGICAL_SORT_DFS(adj,0,vis,ans);
+	    }
+	   reverse(ans.begin(),ans.end());
+	   //  for(auto it :ans) cout<<it<<" ";
+	   
+ 	    return ans;
 	    // code here
 	}
 };
