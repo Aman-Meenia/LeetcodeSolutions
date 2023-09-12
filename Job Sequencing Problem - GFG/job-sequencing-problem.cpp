@@ -26,47 +26,51 @@ struct Job
 class Solution 
 {
     public:
-    static int cmp(vector<int>&a , vector<int> & b){
-        
-        return a[0]>b[0];
-    }
-    // Function to find the maximum profit and the number of jobs done.
+    //Function to find the maximum profit and the number of jobs done.
     vector<int> JobScheduling(Job arr[], int n) 
     { 
-        // your code here
-        int maximum=0;
-        
-        vector<vector<int> > v;
-        for(int i=0; i<n; i++){
-            v.push_back({arr[i].profit,arr[i].dead,arr[i].id});
-            maximum=max(maximum,arr[i].dead);
-        }
-        
-        sort(v.begin(),v.end(),cmp);
-        
-        set<int> st;
-        for(int i=1; i<=maximum; i++){
-            st.insert(-i);
-        }
-        
-    vector<int> ans(2,0);
-        for(int i=0; i<n; i++){
-            int target = -v[i][1];
-            if(st.size()==0) break;
-            auto it = lower_bound(st.begin(),st.end(),target);
-            if(it!=st.end()){
-                // cout<<" i "<<v[i][0]<<endl;
-         ans[1]+=v[i][0];
-         ans[0]+=1;
-                st.erase(it);
-            }
-            
-        }
-        
+priority_queue<pair<int,int> ,vector<pair<int,int> > > pq;
+set<int> st;
+for(int i=1; i<=100; i++){
+    st.insert(i);
+}
+for(int i=0; i<n; i++){
+    pq.push({arr[i].profit,arr[i].dead});
+    // cout<<arr[i].dead<<endl;
+    // for(int k=1; k<=arr[i].dead; k++) {
+    //     // cout<<" I is "<<i<<endl;
+    //     st.insert(k);
+    // }
+}
 
-        return ans;
+int ans = 0;
+int cnt = 0;
+
+while(!st.empty()  && !pq.empty()){
+int prft=pq.top().first;
+int dead=pq.top().second;
+for(int i=dead; i>=1; i--){
+    if(st.find(i)!=st.end()){
+    
+        ans+=prft;
+        cnt++;
+        auto it = st.find(i);
+        st.erase(it);
+        break;
+    }
+}
+pq.pop();
+}
+
+
+
+return {cnt,ans};
+
+
+
     } 
 };
+
 
 //{ Driver Code Starts.
 // Driver program to test methods 
