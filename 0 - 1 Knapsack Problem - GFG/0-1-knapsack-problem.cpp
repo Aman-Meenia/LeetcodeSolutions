@@ -7,25 +7,34 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to return max value that can be put in knapsack of capacity W.
     int dp[1001][1001];
-    int fun( int wt[] , int val[] , int index , int target , int n){
-        if(index==n){
-            return 0;
-        }
-        if(dp[index][target]!=-1) return dp[index][target];
-        int ans1 = 0, ans2 = 0;
-        if(wt[index]<=target){
-          ans1=val[index] + fun(wt,val,index+1,target-wt[index],n);
-        }
-        ans2 = fun(wt, val ,index+1, target,n);
-        return dp[index][target]=max(ans1,ans2);
-        
-    }
-    int knapSack(int W, int wt[], int val[], int n) 
+
+int Knapsack(int v[] , int wt[] , int i , int weight){
+
+if(weight==0 || i<0){
+    return 0;
+}
+if(dp[i][weight]!=-1) return dp[i][weight];
+
+int ans1 =0 , ans2 =0;
+if(wt[i]<=weight){
+   ans1= v[i]+Knapsack(v,wt,i-1,weight-wt[i]);
+}
+ans2 = Knapsack(v,wt,i-1,weight);
+
+
+return dp[i][weight]=max(ans1,ans2);
+
+
+
+}
+
+    //Function to return max value that can be put in knapsack of capacity W.
+    int knapSack(int weight, int wt[], int v[], int n) 
     { 
+        
         memset(dp,-1,sizeof dp);
-        return fun(wt,val,0,W,n);
+        return Knapsack(v,wt,n-1,weight);
        // Your code here
     }
 };
