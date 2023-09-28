@@ -14,41 +14,36 @@ using namespace std;
 class Solution
 {
 public:
-set<string>st;
-int dp [1101][1101];
-bool fun(string &s , int low , int index){
-    if(index==s.size()){
-        if(low==s.size()){
-            return true;
+unordered_set<string> mp;
+int dp[1001];
+int fun(string &s , int index){
+    int n = s.size();
+    if(index>=n) return 1;
+    string t;
+    int ans =0;
+    if(dp[index]!=-1) return dp[index];
+    for(int k=index; k<n; k++){
+        t.push_back(s[k]);
+        // cout<<" t "<<t<<endl;
+        if(mp.find(t)!=mp.end()){
+         ans+=fun(s,k+1);
         }
-        return false;
     }
-    if(dp[low][index]!=-1) return dp[low][index];
-
-bool ans1=false,ans2=false;
-
-    if(st.find(s.substr(low,index-low+1))!=st.end()){
-       ans1= fun(s,index+1,index+1);
-    }
-    ans2=fun(s,low,index+1);
-return dp[low][index]=ans1||ans2;
-
-
-
+    return dp[index]=ans;
+    
 }
-    int wordBreak(string A, vector<string> &B) {
+
+
+
+    int wordBreak(string s, vector<string> &B) {
         //code here
-    for(auto it:B){
-        st.insert(it);
-    }
-    memset(dp,-1,sizeof dp);
-    if(fun(A,0,0)){
-        return 1;
-    }
-    return 0;
+        for(auto it:B){
+            // cout<<it<<" ";
+        mp.insert(it);
+        }
+        memset(dp,-1,sizeof dp);
         
-        
-        
+        return fun(s,0)>0 ?1 :0;
     }
 };
 
