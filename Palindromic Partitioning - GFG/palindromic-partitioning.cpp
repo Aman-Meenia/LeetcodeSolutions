@@ -6,46 +6,46 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-#define ll long long
+
 class Solution{
 public:
-ll dp[505][505];
-bool ispalindrome(string s){
-    int low= 0;
-    int high = s.size()-1;
-    while(low<=high){
-        if(s[low]!=s[high]) return false;
-        low++;
-        high--;
+bool ispalindrome(string & s, int low , int high ){
+while(low<=high){
+if(s[low]!=s[high]) return false;
+low++;
+high--;
+}
+
+return true;
+}
+int dp[501];
+int fun2(string &s , int i){
+int n = s.size();
+if(i>=n){
+    return 0;
+}
+int ANS =INT_MAX;
+string t;
+if(dp[i]!=-1) return dp[i];
+for(int k=i; k<n; k++){
+    t.push_back(s[k]);
+
+    if(ispalindrome(t,0,t.size()-1)){
+    int   t=1+fun2(s,k+1);
+       ANS=min(ANS,t);
     }
-    return true;
-}
-
-ll fun(string &s , int low , int index){
-
-if(index==s.size()){
-    if(low==s.size()){
-        return -1;
-    }
-    return INT_MAX;
-}
-if(dp[low][index]!=-1) return dp[low][index];
-int ans1=INT_MAX , ans2 =INT_MAX;
-if(ispalindrome(s.substr(low,index-low+1))){
-
-ans1 = 1+fun(s,index+1,index+1);
-}
-ans2=fun(s,low,index+1);
-
-return dp[low][index]=min(ans1,ans2);
-
+ 
 
 }
 
-    int palindromicPartition(string str)
+return dp[i]=ANS;
+}
+
+
+    int palindromicPartition(string s)
     {
         memset(dp,-1,sizeof dp);
-        return fun(str,0,0);
+        return fun2(s,0)-1;
     }
 };
 
