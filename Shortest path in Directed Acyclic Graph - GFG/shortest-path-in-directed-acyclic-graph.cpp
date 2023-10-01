@@ -8,57 +8,54 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-  
-vector<int> SHORTEST_PATH_BETWEEN_TWO_NODES(vector<pair<int,int>> adj[] , int n  , int root ){
+     vector<int> shortestPath(int n,int k, vector<vector<int>>& times){
+        
+        
+vector<vector<int>> adj[n];
+for(auto it :times){
+    int source = it[0];
+    int target = it[1];
+    int time = it[2];
 
-vector<int> ans(n,INT_MAX);
+    adj[source].push_back({target,time});
+    }
 
-priority_queue<pair<int,int> , vector<pair<int,int>> , greater<pair<int,int> > > pq;
 
-queue<int> q;
-q.push(root);
-pq.push({0,0});
+priority_queue<pair<int,int> ,vector<pair<int,int> > ,greater<pair<int,int>> > pq;
+
 vector<int> dp(n,INT_MAX);
-
-// dp[root]=0;
+pq.push({0,0});
+dp[0]=0;
 while(!pq.empty()){
 
-int distance = pq.top().first;
-int t = pq.top().second;
+int root = pq.top().second;
+int time = pq.top().first;
+
 pq.pop();
-if(distance<dp[t]){
-    dp[t]=distance;
+// cout<<" root "<<root<<endl;
+for(auto it :adj[root]){
+// cout<<" it. "<<it[0]<<endl;
 
-    for(auto it :adj[t]){
-int total = it.second+distance;
-// cout<<"total "<<total<<endl;
-if(dp[it.first]>total){
-    // dp[it.first]=total;
-    pq.push({total,it.first});
-    }
+int totaltime = time + it[1];
+if(dp[it[0]]>totaltime){
+    dp[it[0]]=totaltime;
+    pq.push({totaltime,it[0]});
+}
+
 }
 }
 
+// int ans=0;
 
+// for(auto it:dp) cout<<it<<" ";cout<<endl;
+for(int i=0; i<=n; i++){
+    if(dp[i]==INT_MAX) dp[i]=-1;;
+    
 }
 
 
-for(int i=0; i<n; i++) if(dp[i]==INT_MAX) dp[i]=-1;
-return dp;
-
-}
-     vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
-        // code here
-        vector<pair<int,int> > adj[N];
-        
-        for(auto it:edges){
-            int a = it[0];
-            int b = it[1];
-            int c = it[2];
-            adj[a].push_back({b,c});
-        }
-        
-        return SHORTEST_PATH_BETWEEN_TWO_NODES(adj,N,0);
+       
+return dp;      
     }
 };
 
