@@ -12,27 +12,40 @@ class Solution{
     //railway station such that no train waits.
     int findPlatform(int arr[], int dep[], int n)
     {
-        
-        sort(arr,arr+n);
-        sort(dep,dep+n);
-        
-        priority_queue<int,vector<int> ,greater<int> >pq;
-        pq.push(dep[0]);
-        int ans = 1;
-        for(int i=1; i<n; i++){
-            while(!pq.empty() && pq.top()<arr[i]){
-                pq.pop();
-            }
-            pq.push(dep[i]);
-            int pqsize=pq.size();
-            ans = max(ans,pqsize);
-        }
-        
-        return ans;
-        
-        
-        
     	// Your code here
+    	
+    	   vector<vector<int> > v;
+    // int n = A.size();
+    
+    for(int i=0; i<n; i++){
+        v.push_back({arr[i],dep[i]});
+    }
+    sort(v.begin(),v.end());
+    int ans = 1;
+    
+priority_queue<int,vector<int>,greater<int>>pq;
+for(int i=0; i<n; i++){
+    
+    
+    while(!pq.empty() && v[i][0]>pq.top()){
+        pq.pop();
+            }
+            
+            pq.push(v[i][1]);
+            int size = pq.size();
+            ans=max(ans,size);
+    
+    
+    
+    
+}
+    
+    
+    
+    
+    
+    return ans;
+    
     }
 };
 
